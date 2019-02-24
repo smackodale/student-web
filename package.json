@@ -24,7 +24,6 @@
     "primeicons": "^1.0.0",
     "primeng": "^7.0.5",
     "rxjs": "^6.3.3",
-    "semantic-ui-css": "^2.4.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
   },

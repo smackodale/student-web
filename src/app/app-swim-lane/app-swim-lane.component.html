@@ -1,3 +1,5 @@
-<p>
-  app-swim-lane works!
-</p>
+<div [ngClass]="laneType">
+  <p-card [style]="{width: '360px'}" *ngFor="let student of students" [header]="student.givenNames">
+
+  </p-card>
+</div>

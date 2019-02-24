@@ -1,12 +1,6 @@
 <!--The content below is only a placeholder and can be replaced.-->
-
-<div class="ui top fixed inverted menu">
-  <a class="launch icon item" (click)="showSidebar = !showSidebar">
-    <i class="content icon"></i>
-  </a>
-  <div class="item">
-    Student Web
-  </div>
+<div>
+  <a (click)="showSidebar = !showSidebar"><i class="pi pi-bars"></i></a>
 </div>
 
 <p-sidebar [(visible)]="showSidebar" [baseZIndex]="10000">
@@ -20,71 +14,7 @@
   </button>
 
 </p-sidebar>
-<div class="site-content">
 
-  <!-- <div class="ui vertical inverted sidebar menu left" id="menu">
-  <div class="item">
-    <div class="header">Filter</div>
-    <div class="item">
-    
-</div>
-</div>
-<div class="item">
-  <div class="header">Update Students</div>
-  <div class="item">
-    <button class="ui primary button">
-      Import
-    </button>
-  </div>
-</div>
-</div> -->
-
-
-
-  <div class="ui  inverted dimmer">
-    <div class="ui text loader">Loading</div>
-  </div>
-
-  <div class="ui cards">
-    <div class="card">
-      <div class="content">
-        <img class="right floated mini ui image" src="/images/avatar/large/elliot.jpg">
-        <div class="header">
-          Elliot Fu
-        </div>
-        <div class="meta">
-          Friends of Veronika
-        </div>
-        <div class="description">
-          Elliot requested permission to view your contact details
-        </div>
-      </div>
-      <div class="extra content">
-        <div class="ui two buttons">
-          <div class="ui basic green button">Approve</div>
-          <div class="ui basic red button">Decline</div>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="content">
-        <img class="right floated mini ui image" src="/images/avatar/large/jenny.jpg">
-        <div class="header">
-          Jenny Hess
-        </div>
-        <div class="meta">
-          New Member
-        </div>
-        <div class="description">
-          Jenny wants to add you to the group <b>best friends</b>
-        </div>
-      </div>
-      <div class="extra content">
-        <div class="ui two buttons">
-          <div class="ui basic green button">Approve</div>
-          <div class="ui basic red button">Decline</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<app-app-swim-lane [laneType]="'high'" [students]="highStudents | async"></app-app-swim-lane>
+<app-app-swim-lane [laneType]="'medium'" [students]="mediumStudents | async"></app-app-swim-lane>
+<app-app-swim-lane [laneType]="'low'" [students]="lowStudents | async"></app-app-swim-lane>

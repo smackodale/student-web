@@ -4,15 +4,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarModule } from 'primeng/sidebar';
 import { AppRoutingModule } from './app-routing.module';
-import { AppStudentCardComponent } from './app-student-card/app-student-card.component';
 import { AppSwimLaneComponent } from './app-swim-lane/app-swim-lane.component';
 import { AppComponent } from './app.component';
+import { CardModule } from 'primeng/card';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AppStudentCardComponent,
     AppSwimLaneComponent
   ],
   imports: [
@@ -20,6 +19,7 @@ import { AppComponent } from './app.component';
     AppRoutingModule,
     HttpClientModule,
     SidebarModule,
+    CardModule,
     BrowserAnimationsModule
   ],
   providers: [],
