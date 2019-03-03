@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { filter, find, some, uniq, uniqBy } from 'lodash';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { FilterValue, StudentFilter } from './models/student-filter.model';
@@ -6,6 +6,7 @@ import { StudentSubject } from './models/student-subject.model';
 import { Result, Student } from './models/student.model';
 import { ImporterService } from './services/importer.service';
 import { StudentService } from './services/student.service';
+import { FileUpload } from 'primeng/fileupload';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,8 @@ export class AppComponent implements OnInit {
 
   selectedFilter: StudentFilter;
   selectedSubject: StudentSubject;
+
+  @ViewChild(FileUpload) fileUpload: FileUpload;
 
   constructor(
     private studentService: StudentService,
@@ -65,6 +68,7 @@ export class AppComponent implements OnInit {
             this.refreshStudents();
           });
         });
+      this.fileUpload.clear();
     };
 
     reader.readAsBinaryString(file);
