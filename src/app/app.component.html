@@ -6,15 +6,41 @@
 <p-sidebar [(visible)]="showSidebar" [baseZIndex]="10000">
 
   <h3>Filter</h3>
+  <div class="p-grid">
+    <p-dropdown class="p-col-12" [style]="{'width':'260px'}" [options]=" filters" [(ngModel)]="selectedFilter"
+      optionLabel="name">
+    </p-dropdown>
+    <p-checkbox class="p-col-12" *ngFor="let value of selectedFilter?.values" [label]="value.name"
+      [(ngModel)]="value.selected" binary="true">
+    </p-checkbox>
+    <p-button class="p-col-4" label="Filter" (click)="performFilter()"></p-button>
+    <p-button class="p-col-4" label="Clear" (click)="clearFilter()"></p-button>
+  </div>
   <div class="ui divider"></div>
+
+  <h3>Subject</h3>
+  <div class="p-grid">
+    <p-dropdown class="p-col-12" [style]="{'width':'260px'}" [options]="subjects" optionLabel="name"
+      [(ngModel)]="selectedSubject" (onChange)="changeSubject()">
+    </p-dropdown>
+  </div>
+  <div class="ui divider"></div>
+
   <h3>Update Students</h3>
-
-  <button class="ui primary button">
-    Import
-  </button>
-
+  <div class="p-grid">
+    <p-fileUpload class="p-col-12" chooseLabel="Import" mode="basic" accept=".xlsx,.xls" maxFileSize="20000000"
+      (onUpload)="import($event)">
+    </p-fileUpload>
+  </div>
+  <div class="p-grid">
+    <p-button class="p-col-12" label="Delete All" (click)="deleteAll()"></p-button>
+  </div>
 </p-sidebar>
 
-<app-app-swim-lane [laneType]="'high'" [students]="highStudents | async"></app-app-swim-lane>
-<app-app-swim-lane [laneType]="'medium'" [students]="mediumStudents | async"></app-app-swim-lane>
-<app-app-swim-lane [laneType]="'low'" [students]="lowStudents | async"></app-app-swim-lane>
+<p-toast [style]="{marginTop: '80px'}" position="top-center"></p-toast>
+
+<div class="site-content p-grid">
+  <app-app-swim-lane class="high p-col-12" [students]="highStudents"></app-app-swim-lane>
+  <app-app-swim-lane class="medium p-col-12" [students]="mediumStudents "></app-app-swim-lane>
+  <app-app-swim-lane class="low p-col-12" [students]="lowStudents"></app-app-swim-lane>
+</div>

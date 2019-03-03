@@ -1,11 +1,15 @@
-:host{
-  width: 100%;
-}
-
 .site-content{
-  margin-top: 50px;
+  margin-top: 5px;
 }
 
-.topmenu{
-  
+.high{
+  background-color: green;
+}
+
+.medium{
+  background-color: yellow;
+}
+
+.low{
+  background-color: red;
 }

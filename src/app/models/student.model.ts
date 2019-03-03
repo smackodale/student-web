@@ -6,6 +6,8 @@ export interface IStudent {
   yearLevel?: number;
   rollClass?: string;
   house?: string;
+  indigenous?: boolean;
+  disabilities?: boolean;
   attendance?: number;
   image?: string;
   results?: IResult[];

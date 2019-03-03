@@ -21,4 +21,8 @@ export class StudentService {
   public deleteStudent(studentId: string): Observable<any> {
     return this.dataService.delete(`students/${studentId}`);
   }
+
+  public deleteAllStudents(): Observable<any> {
+    return this.dataService.delete(`students`);
+  }
 }
