@@ -29,7 +29,7 @@
   <h3>Update Students</h3>
   <div class="p-grid">
     <p-fileUpload class="p-col-12" chooseLabel="Import" mode="basic" accept=".xlsx,.xls" maxFileSize="20000000"
-      (onUpload)="import($event)">
+      auto="true" (onSelect)="import($event)">
     </p-fileUpload>
   </div>
   <div class="p-grid">

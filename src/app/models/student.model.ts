@@ -1,23 +1,4 @@
-export interface IStudent {
-  studentIdentifier?: string;
-  familyName?: string;
-  givenNames?: string;
-  gender?: string;
-  yearLevel?: number;
-  rollClass?: string;
-  house?: string;
-  indigenous?: boolean;
-  disabilities?: boolean;
-  attendance?: number;
-  image?: string;
-  results?: IResult[];
-}
-
-export class Student implements IStudent {
-  constructor() {
-    this.results = new Array<Result>();
-  }
-
+export class Student {
   studentIdentifier?: string;
   familyName?: string;
   givenNames?: string;
@@ -30,16 +11,53 @@ export class Student implements IStudent {
   attendance?: number;
   image?: string;
   results?: Result[];
+
+  constructor(init?: Partial<Student>) {
+    Object.assign(this, init);
+    this.results = new Array<Result>();
+  }
 }
 
-export interface IResult {
+export class Result {
   subject?: string;
   achievement?: string;
   previousAchievement?: string;
 }
 
-export class Result implements IResult {
+export class ImportStudent {
+  studentIdentifier?: string;
+  familyName?: string;
+  givenNames?: string;
+  gender?: string;
+  yearLevel?: number;
+  rollClass?: string;
+  house?: string;
+  indigenous?: boolean;
+  disabilities?: boolean;
+  attendance?: number;
+  image?: string;
   subject?: string;
   achievement?: string;
   previousAchievement?: string;
+
+  constructor(init?: Partial<ImportStudent>) {
+    Object.assign(this, init);
+  }
+
+  toStudent(): Student {
+    const student = new Student({
+      studentIdentifier: this.studentIdentifier,
+      familyName: this.familyName,
+      givenNames: this.givenNames,
+      gender: this.gender,
+      yearLevel: this.yearLevel,
+      rollClass: this.rollClass,
+      house: this.house,
+      indigenous: this.indigenous,
+      disabilities: this.disabilities,
+      attendance: this.attendance
+    });
+
+    return student;
+  }
 }

@@ -4,6 +4,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { FilterValue, StudentFilter } from './models/student-filter.model';
 import { StudentSubject } from './models/student-subject.model';
 import { Result, Student } from './models/student.model';
+import { ImporterService } from './services/importer.service';
 import { StudentService } from './services/student.service';
 
 @Component({
@@ -25,23 +26,14 @@ export class AppComponent implements OnInit {
   selectedFilter: StudentFilter;
   selectedSubject: StudentSubject;
 
-  constructor(private studentService: StudentService, private confirmService: ConfirmationService, private messageService: MessageService) { }
+  constructor(
+    private studentService: StudentService,
+    private confirmService: ConfirmationService,
+    private messageService: MessageService,
+    private importerService: ImporterService) { }
 
   ngOnInit() {
-    this.studentService.getStudents()
-      .subscribe((students: Student[]) => {
-        this.allStudents = students;
-
-        this.filters = this.constructFilters(students);
-        if (this.filters.length > 0) {
-          this.selectedFilter = this.filters[0];
-        }
-
-        this.subjects = this.constructSubjects(students);
-        if (this.subjects.length > 0) {
-          this.selectedSubject = this.subjects[0];
-        }
-      });
+    this.refreshStudents();
   }
 
   performFilter(): void {
@@ -58,7 +50,24 @@ export class AppComponent implements OnInit {
   }
 
   import(event: any): void {
+    const file = event.files[0];
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      const data = e.target.result;
+      this.importerService.importStudents(data,
+        (message: string) => {
+          this.messageService.add({ severity: 'warn', summary: 'Import Failed', detail: message });
+        },
+        (students: Student[]) => {
+          this.studentService.saveStudents(students).subscribe(() => {
+            this.messageService.add({ severity: 'info', summary: 'Students Updated', detail: 'Student records have been updated.' });
 
+            this.refreshStudents();
+          });
+        });
+    };
+
+    reader.readAsBinaryString(file);
   }
 
   deleteAll(): void {
@@ -68,7 +77,9 @@ export class AppComponent implements OnInit {
       icon: 'pi pi-info-circle',
       accept: () => {
         this.studentService.deleteAllStudents().subscribe(() => {
-          this.messageService.add({ severity: 'warn', summary: 'Records Deleted', detail: 'All student records deleted.' });
+          this.refreshStudents();
+
+          this.messageService.add({ severity: 'warn', summary: 'Records Deleted', detail: 'All student records have been deleted.' });
         });
       },
       reject: () => {
@@ -77,9 +88,26 @@ export class AppComponent implements OnInit {
     });
   }
 
+  private refreshStudents() {
+    this.studentService.getStudents()
+      .subscribe((students: Student[]) => {
+        this.allStudents = students;
+
+        this.filters = this.constructFilters(students);
+        if (this.filters.length > 0) {
+          this.selectedFilter = this.filters[0];
+        }
+
+        this.subjects = this.constructSubjects(students);
+        if (this.subjects.length > 0) {
+          this.selectedSubject = this.subjects[0];
+        }
+      });
+  }
+
   private updateStudentLists() {
     // filter students by subject
-    let students = filter(this.allStudents, (student: Student) => {
+    const students = filter(this.allStudents, (student: Student) => {
       if (!!student.results) {
         return some(student.results, (result: Result) => result.subject === this.selectedSubject.name);
       }
