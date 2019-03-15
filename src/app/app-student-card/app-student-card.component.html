@@ -20,8 +20,8 @@
         <div class="ui-g-12"><b>Attendance:</b> {{aStudent?.attendance}}%</div>
       </div>
       <div class="ui-g">
-        <div class="ui-g-6"><b>ATSI:</b> {{aStudent?.indigenous}}</div>
-        <div class="ui-g-6"><b>SWD:</b> {{aStudent?.disabilities}}</div>
+        <div class="ui-g-6"><b>ATSI:</b> {{aStudent?.indigenous ? 'Y' : 'N'}}</div>
+        <div class="ui-g-6"><b>SWD:</b> {{aStudent?.disabilities ? 'Y' : 'N'}}</div>
       </div>
     </div>
   </div>
