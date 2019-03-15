@@ -1,16 +1,13 @@
 <p-card>
   <div class="ui-g">
-    <div class="ui-g-8 ui-g-nopad">
+    <div class="ui-g-6 ui-g-nopad">
       <b>{{aStudent?.givenNames + ' ' + aStudent?.familyName}}</b>
     </div>
-    <div class="ui-g-4 ui-g-nopad">
-      <p-fileUpload class="p-col-12" chooseLabel="Pic" mode="basic" accept=".jpg,.jpeg" maxFileSize="20000000"
-        (onSelect)="upload($event)">
-      </p-fileUpload>
+    <p-fileUpload class="ui-g-4" chooseLabel="Img" mode="basic" accept=".jpg,.jpeg" maxFileSize="20000000"
+      (onSelect)="upload($event)">
+    </p-fileUpload>
+    <p-button class="ui-g-2" label="" icon="pi pi-trash" iconPos="left" (onClick)="delete()"></p-button>
 
-      <p-button label="" icon="pi pi-trash" iconPos="left"></p-button>
-
-    </div>
   </div>
 
 

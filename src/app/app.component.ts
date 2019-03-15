@@ -63,6 +63,15 @@ export class AppComponent implements OnInit {
           this.messageService.add({ severity: 'warn', summary: 'Import Failed', detail: message });
         },
         (students: Student[]) => {
+          // map images correctly
+          students.forEach((student: Student) => {
+            const prevStudent = find(this.allStudents, (value: Student) => value.studentIdentifier === student.studentIdentifier);
+
+            if (!!prevStudent) {
+              student.image = prevStudent.image;
+            }
+          });
+
           this.studentService.saveStudents(students).subscribe(() => {
             this.messageService.add({ severity: 'info', summary: 'Students Updated', detail: 'Student records have been updated.' });
 
@@ -81,7 +90,7 @@ export class AppComponent implements OnInit {
     this.confirmService.confirm({
       message: 'Do you want to delete all student records? NOTE: You will need to re-import to continue to use this tool.',
       header: 'Delete Confirmation',
-      icon: 'pi pi-info-circle',
+      icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.studentService.deleteAllStudents().subscribe(() => {
           this.messageService.add({ severity: 'warn', summary: 'Records Deleted', detail: 'All student records have been deleted.' });

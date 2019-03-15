@@ -3,6 +3,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Result, Student } from 'app/models/student.model';
 import { StudentService } from 'app/services/student.service';
 import { find } from 'lodash';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { FileUpload } from 'primeng/fileupload';
 
 @Component({
@@ -29,7 +30,7 @@ export class AppStudentCardComponent implements OnInit {
   previousResult: string;
   currentResult: string;
 
-  constructor(private domSanitizer: DomSanitizer, private studentService: StudentService) { }
+  constructor(private domSanitizer: DomSanitizer, private studentService: StudentService, private confirmService: ConfirmationService, private messageService: MessageService) { }
 
   ngOnInit() { }
 
@@ -41,12 +42,27 @@ export class AppStudentCardComponent implements OnInit {
       this.aStudent.image = btoa(data);
 
       this.studentService.saveStudents([this.aStudent]).subscribe(() => {
+        this.messageService.add({ severity: 'info', summary: 'Image Updated', detail: `Image updated for ${this.aStudent.givenNames + ' ' + this.aStudent.familyName}.` });
         this.loadImage();
       });
       this.fileUpload.clear();
     };
 
     reader.readAsBinaryString(file);
+  }
+
+  delete() {
+    this.confirmService.confirm({
+      message: `Do you want to delete this student record for ${this.aStudent.givenNames + ' ' + this.aStudent.familyName}? WARNING: This cannot be undone!.`,
+      header: 'Delete Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.studentService.deleteStudent(this.aStudent.studentIdentifier).subscribe(() => {
+          this.messageService.add({ severity: 'warn', summary: 'Record Deleted', detail: `${this.aStudent.givenNames + ' ' + this.aStudent.familyName} has been deleted. You will need to refresh for changes to take effect!` });
+        });
+      },
+      reject: () => { }
+    });
   }
 
   private populateResults() {
