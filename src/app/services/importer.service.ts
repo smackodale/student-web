@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ImportStudent, Student } from 'app/models/student.model';
 import { filter, find, uniq } from 'lodash';
 import * as xlsx from 'xlsx';
+import { isNumber } from 'util';
 
 @Injectable({
   providedIn: 'root'
@@ -88,8 +89,8 @@ export class ImporterService {
       yearLevel: this.getCellValue(this.getColDef('year level', colDef), row, worksheet) as number,
       rollClass: this.getCellValue(this.getColDef('roll class', colDef), row, worksheet) as string,
       house: this.getCellValue(this.getColDef('house', colDef), row, worksheet) as string,
-      indigenous: this.getCellValue(this.getColDef('indigenous', colDef), row, worksheet) as boolean,
-      disabilities: this.getCellValue(this.getColDef('disabilities', colDef), row, worksheet) as boolean,
+      indigenous: this.toBool(this.getCellValue(this.getColDef('indigenous', colDef), row, worksheet)),
+      disabilities: this.toBool(this.getCellValue(this.getColDef('disabilities', colDef), row, worksheet)),
       attendance: this.getCellValue(this.getColDef('attendance', colDef), row, worksheet) as number,
       subject: this.getCellValue(this.getColDef('subject id', colDef), row, worksheet) as string,
       achievement: this.getCellValue(this.getColDef('achievement', colDef), row, worksheet) as string,
@@ -101,7 +102,24 @@ export class ImporterService {
     return student;
   }
 
-  private getCellValue(colDef: string, row: number, worksheet: xlsx.WorkSheet): string | number | boolean {
+  private toBool(value: any): boolean {
+    if (!!value) {
+      let stringValue = value;
+      if (isNumber(value)) {
+        stringValue = value.toString();
+      }
+      stringValue = stringValue.toLowerCase();
+      if (stringValue === 'y' || stringValue === 'yes' || stringValue === 'true' || stringValue === 't' || stringValue === '1') {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  private getCellValue(colDef: string, row: number, worksheet: xlsx.WorkSheet): any {
     if (!colDef) {
       return null;
     }

@@ -36,7 +36,10 @@ import { AppComponent } from './app.component';
     ToastModule,
     FileUploadModule
   ],
-  providers: [ConfirmationService, MessageService],
+  providers: [
+    ConfirmationService,
+    MessageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

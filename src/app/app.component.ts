@@ -53,6 +53,7 @@ export class AppComponent implements OnInit {
   }
 
   import(event: any): void {
+    this.showSidebar = false;
     const file = event.files[0];
     const reader = new FileReader();
     reader.onload = (e: any) => {
@@ -75,15 +76,17 @@ export class AppComponent implements OnInit {
   }
 
   deleteAll(): void {
+    this.showSidebar = false;
+
     this.confirmService.confirm({
       message: 'Do you want to delete all student records? NOTE: You will need to re-import to continue to use this tool.',
       header: 'Delete Confirmation',
       icon: 'pi pi-info-circle',
       accept: () => {
         this.studentService.deleteAllStudents().subscribe(() => {
-          this.refreshStudents();
-
           this.messageService.add({ severity: 'warn', summary: 'Records Deleted', detail: 'All student records have been deleted.' });
+
+          this.refreshStudents();
         });
       },
       reject: () => {
@@ -106,6 +109,8 @@ export class AppComponent implements OnInit {
         if (this.subjects.length > 0) {
           this.selectedSubject = this.subjects[0];
         }
+
+        this.updateStudentLists();
       });
   }
 

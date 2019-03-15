@@ -12,6 +12,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~7.2.0",
+    "@angular/cdk": "^7.3.4",
     "@angular/common": "~7.2.0",
     "@angular/compiler": "~7.2.0",
     "@angular/core": "~7.2.0",
@@ -23,7 +24,7 @@
     "lodash-es": "^4.17.11",
     "primeflex": "^1.0.0-rc.1",
     "primeicons": "^1.0.0",
-    "primeng": "^7.0.5",
+    "primeng": "^7.1.0",
     "rxjs": "^6.3.3",
     "tslib": "^1.9.0",
     "xlsx": "^0.14.1",
