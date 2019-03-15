@@ -156,6 +156,11 @@ export class ImporterService {
     if (student.attendance != null && student.attendance < 1) {
       student.attendance = student.attendance * 100;
     }
+
+    // import changes int to string
+    if (isNumber(student.studentIdentifier)) {
+      student.studentIdentifier = student.studentIdentifier.toString();
+    }
   }
 
 

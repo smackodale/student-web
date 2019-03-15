@@ -40,9 +40,12 @@
 <p-toast [style]="{marginTop: '80px'}" position="top-center"></p-toast>
 
 <div class="site-content p-grid">
-  <app-app-swim-lane class="high p-col-12" [students]="highStudents"></app-app-swim-lane>
-  <app-app-swim-lane class="medium p-col-12" [students]="mediumStudents "></app-app-swim-lane>
-  <app-app-swim-lane class="low p-col-12" [students]="lowStudents"></app-app-swim-lane>
+  <app-app-swim-lane class="high p-col-12" [students]="highStudents" [subject]="selectedSubject?.name">
+  </app-app-swim-lane>
+  <app-app-swim-lane class="medium p-col-12" [students]="mediumStudents" [subject]="selectedSubject?.name">
+  </app-app-swim-lane>
+  <app-app-swim-lane class="low p-col-12" [students]="lowStudents" [subject]="selectedSubject?.name">
+  </app-app-swim-lane>
 </div>
 
 <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>

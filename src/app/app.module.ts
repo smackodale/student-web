@@ -13,13 +13,15 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { SidebarModule } from 'primeng/sidebar';
 import { ToastModule } from 'primeng/toast';
 import { AppRoutingModule } from './app-routing.module';
+import { AppStudentCardComponent } from './app-student-card/app-student-card.component';
 import { AppSwimLaneComponent } from './app-swim-lane/app-swim-lane.component';
 import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AppSwimLaneComponent
+    AppSwimLaneComponent,
+    AppStudentCardComponent
   ],
   imports: [
     BrowserModule,

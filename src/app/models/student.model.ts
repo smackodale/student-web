@@ -1,4 +1,5 @@
 export class Student {
+  _id: string;
   studentIdentifier?: string;
   familyName?: string;
   givenNames?: string;

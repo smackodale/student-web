@@ -11,6 +11,11 @@ export class StudentService {
   constructor(private dataService: DataService) { }
 
   public saveStudents(students: Student[]): Observable<any> {
+    // remove id colum
+    students.forEach((student: Student) => {
+      delete student._id;
+    });
+
     return this.dataService.post<Student[], any>('students', students);
   }
 

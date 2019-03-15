@@ -10,6 +10,7 @@ export class AppSwimLaneComponent implements OnInit {
 
   @Input() students: Student[];
   @Input() laneType: string;
+  @Input() subject: string;
 
   constructor() { }
 

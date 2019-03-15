@@ -1,3 +1,1 @@
-<p-card [style]="{width: '360px'}" *ngFor="let student of students" [header]="student.givenNames">
-
-</p-card>
+<app-student-card *ngFor="let student of students" [student]="student" [subject]="subject"></app-student-card>
